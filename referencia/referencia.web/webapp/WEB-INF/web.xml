@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>Ferramenta de Apoio ao Ambiente de Desenvolvimento</display-name>
+  <welcome-file-list>
+    <welcome-file>public/login.jsf</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/public/paginaNaoEncontrada.xhtml</location>
+  </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/public/acessoNegado.xhtml</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/public/erroInterno.xhtml</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/public/erroInterno.xhtml</location>
+  </error-page>
+  <security-constraint>
+    <display-name>Restrict direct access to XHTML files</display-name>
+    <web-resource-collection>
+      <web-resource-name>XHTML files</web-resource-name>
+      <url-pattern>*.xhtml</url-pattern>
+    </web-resource-collection>
+    <auth-constraint/>
+  </security-constraint>
+  <session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
+</web-app>
