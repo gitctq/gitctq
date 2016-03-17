@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>referencia</groupId>
+		<artifactId>referencia</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<url>http://maven.apache.org</url>
+
+	<artifactId>referencia.ear</artifactId>
+
+	<packaging>ear</packaging>
+	<name>referencia.ear</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<version>2.3.2</version>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<version>7</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<modules>
+						<webModule>
+							<groupId>referencia</groupId>
+							<artifactId>referencia.web</artifactId>
+							<contextRoot>/referencia</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>referencia</groupId>
+							<artifactId>referencia.api</artifactId>
+							<contextRoot>/referencia.api</contextRoot>
+						</webModule>
+						<ejbModule>
+							<groupId>referencia</groupId>
+							<artifactId>referencia.negocio</artifactId>
+						</ejbModule>
+						<jarModule>
+							<groupId>referencia</groupId>
+							<artifactId>referencia.persistencia</artifactId>
+							<bundleDir>/lib</bundleDir>
+						</jarModule>
+						<jarModule>
+							<groupId>referencia</groupId>
+							<artifactId>referencia.dominio</artifactId>
+							<bundleDir>/lib</bundleDir>
+						</jarModule>
+						<jarModule>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+							<bundleDir>/lib</bundleDir>
+						</jarModule>
+					</modules>
+					<manifest>
+						<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+					</manifest>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.0.2.Final</version>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>referencia</groupId>
+			<artifactId>referencia.web</artifactId>
+			<version>1.0</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>referencia</groupId>
+			<artifactId>referencia.api</artifactId>
+			<version>1.0</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>referencia</groupId>
+			<artifactId>referencia.negocio</artifactId>
+			<version>1.0</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>referencia</groupId>
+			<artifactId>referencia.persistencia</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>referencia</groupId>
+			<artifactId>referencia.dominio</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+		</dependency>
+		<!-- <dependency>
+			<groupId>hammerstone</groupId>
+			<artifactId>hammerstone.core</artifactId>
+			<version>1.0.3</version>
+			<scope>runtime</scope>
+		</dependency> -->
+	</dependencies>
+</project>
