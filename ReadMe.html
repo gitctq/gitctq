@@ -1,0 +1,145 @@
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Borland Connect Readme for Git sample connector">
+<title>Borland Connect Readme for Git Connector</title>
+<style>
+ h1
+ {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	margin-bottom:10.0pt;
+ }
+ h2
+ {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+ }
+ p
+ {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+ }
+ li
+ {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+ }
+</style>
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=WordSection1>
+
+<h1>ReadMe for Borland Connect &ndash; Git sample connector</h1>
+<ul>
+<li><strong>Version</strong>: 1.6.1.14</li>
+<li><strong>Last Updated</strong>: October 22, 2015</li>
+</ul>
+<p>Please refer to the Borland Community and Borland Connect User Guide for further configuration instructions.  The sample Connect.xml configuration provided with this Connector demonstrates how to setup the Git Connector to synchronize Git Change Sets into the Borland CM Hub.</p>
+
+<p>This connector requires at least build 1.5.504 of Borland Connect and can be configured using the Borland Connect UI. The latest version of Borland Connect can be downloaded from Micro Focus SupportLine (<a href="http://supportline.microfocus.com/">http://supportline.microfocus.com</a>).</p>
+
+<h2>Required Libraries</h2>
+
+<p>The following libraries are required to run the Git Connector for Borland Connect. They must be copied to the root folder of the Borland Connect installation for the connector to work correctly.</p>
+<ul>
+<li>Version 3.4 of the JGit library which can be downloaded from <a href="http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit/3.4.1.201406201815-r">http://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit/3.4.1.201406201815-r .</a>
+</li>
+
+<li>Version 0.1.50 of the <span class=SpellE>JSch</span> Java Secure Channel library which can be downloaded from <a href="http://mvnrepository.com/artifact/com.jcraft/jsch/0.1.50">http://mvnrepository.com/artifact/com.jcraft/jsch/0.1.50 .</a>
+</li>
+</ul>
+<p>The GitConnector-1.6.1.14.jar from the deploy folder should be copied to the root folder of the Borland Connect installation.</p>
+<h2>Required Connection Information</h2>
+<p>In order to use this connector, you will need to collect and enter this information in the Borland Connect user interface or in the &lt;datasource&gt; element in the Connect.xml file:</p>
+<ul>
+<li><strong>Name</strong> - Enter a unique name for the data source.</li>
+<li><strong>Product</strong> - Select the data source product name.</li>
+<li><strong>Time Offset</strong> - Number of seconds the data source time differs from the Borland Connect process time.</li>
+<li><strong>User</strong> - Enter the user name.  This user must have the access rights to do Commit and Checkout.</li>
+<li><strong>Password</strong> - Enter the password for the user.</li> 
+<li><strong>URL</strong> - Enter the Git URL to connect to.</li>
+
+</ul>
+<h2>Setting the Project path</h2>
+<p>The Git Connector supports setting the Project Path value via the Borland Connect UI or directly in the Connect.xml file.  When setting the 
+Git Project Path, the value must point to a folder within the branch, begin with a / and not end with a /.  For example:  /ProjectName.  The Git 
+branch is specified as part of the Project value and thus is not included as a part of the Project Path value.</p>
+
+<h2>Setting the ProcessItemProperty attribute</h2>
+<p>
+The Git Connector connector supports using the Comment property of a Commit to hold the StarTeam URL for a process item.  
+When the ProcessitemProperty attribute for the ChangeSet type is set to &quot;PIComment&quot;, and the comment appears to be a valid starteam url (e.g. starts with starteam://), 
+Borland Connect will use the item referenced by the url as the process item when creating the ChangePackage(s) in StarTeam that correspond to the ChangeSet in Git.
+</p>
+
+<h2>Known Limitations/Issues</h2>
+<ul>
+<li>Git only surfaces changes to files. Therefore, when the last file in a folder is either deleted or moved from the folder, the GitConnector
+will also generate a Delete Folder change. If bi-directional synchronization is taking place, be sure that the connector is not in a merge situation e.g. a new file in the 
+corresponding folder in the Borland Hub has been added.</li>
+
+<li> The Git connector does not support impersonation. As such, changes synchronized from Borland Hub into Git will show the Author as the administrative user specified in 
+the configuration file. However, since Borland Hub does support impersonation, the changes from Git into Borland Hub will show the Author as the user that made the edit 
+in Git as long as that user's full name exists in Borland Hub.</li>
+
+<li> A single changeSet from Borland Hub may result in multiple ChangeSets in Git due to the requirement that a move or rename cannot preceed a content change in the 
+sameChangePackage (commit) if history of the item is to be preserved.</li>
+
+<li>The Git connector requires that the LinkMapProperty be set to Comment.  In the UI this is set in the &quot;Mapped External Type ID Property&quot; on the Advanced tab of the 
+Edit Type dialog.  The value
+  for the "Borland Hub External Type ID Property" must be &quot;Name&quot;. No property mappings are supported.</li>
+
+<li>If specified, the &quot;Project Path&quot; for the Git connector, must have the form /Folder{/Folder}, e.g. beginning with a slash and ending with a name. 
+In the xml, is the either the sourceRootPath or targetRootPath.</li>
+
+<li>
+Borland Hub and CPC documentation refer to a bundled group of file/folder changes as a &quot;Change Package&quot;.  
+In the Borland Connect GUI, this same bundled group is referred to as a &quot;Change Set&quot;.
+</li>
+
+<li>
+Changes that occurred before a git connector was running are not synchronized.  For example, if you create a connection
+for a git repository containing existing history, changes prior to running the git connector will not be synchronized to Borland Hub.
+</li>
+
+<li>
+On the &quot;Add Type Mapping&quot; page of the GUI, users must specify the &quot;Git Type&quot; before specifying the &quot;Borland Hub Type&quot;.  
+The GUI should enforce this constraint.
+</li>
+
+</ul>
+
+<h2>Configuring the Connector to use SSL</h2>
+
+<p>If the Git repository is using SSL instead of https, then the following steps must be performed.</p>
+<ul>
+<li>The url must have the format: ssh://git@HOSTNAME/<GitRepo>.git</li>
+<li>If using GitHub, insure that the public key is provided to the server ( not the private key ).</li>
+<li>Insure that the path to the private key is provided in the PrivateKeyFile custom property in the DataSource definition in the Connect.xml file.
+  Make sure that the public &quot;.pub&quot; and private keys are in
+the user directory ( on windows the user's home directory ).</li>
+
+<li>
+Insure that the path to the known_hosts file is provided in the KnownHostsFile custom property in the DataSource definition in the Connect.xml file.
+</li>
+<li>Make sure the Git command line is installed locally.</li>
+<li>Make sure the required Environment variables are defined:
+<ul>
+<li> GIT_HOME - this should be path to the GIT binary folder ( e.g. c:\program files\git\bin ).</li>
+<li> GIT_SSH - this should be set to the %GIT_HOME%\ssh.exe.</li>
+</ul>
+</li>
+<li>
+If using GitHub, verify that the machine can connect to the GitHub server
+<ul>
+<li>E.g. ssh git@github.com:<GitUserName>/<GitRepo>.git</li>
+<li> Note: on the first try to the github machine the user will be asked whether the remote machine should be added to remotes - reply &quot;yes&quot;.</li>
+</ul>
+</ul>
+
+</table>
+</body>
+</html>

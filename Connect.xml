@@ -1629,6 +1629,86 @@
 </Type>
 </Types>
 </DataSource>
+<DataSource>
+	<connectId>c12f9c57-35ac-454a-8ee7-6da93af57ca0</connectId>
+	<name>GitLocal</name>
+	<product>Git</product>
+<Properties>
+<Property>
+	<connectId>6b587bd4-202e-467c-8a94-a38b69c5989e</connectId>
+	<name>KnownHostsFile</name>
+	<value/>
+</Property>
+<Property>
+	<connectId>cf03bb4a-429f-4245-a37f-b612963d2a2d</connectId>
+	<name>PrivateKeyFile</name>
+	<value/>
+</Property>
+<Property>
+	<connectId>6fd12b7e-fc49-4349-a3ad-43cd9c5585cd</connectId>
+	<name>URL</name>
+	<value>D:\RepositorioGitCTQ</value>
+</Property>
+<Property>
+	<connectId>cab73739-f0b2-4f4c-a89b-b4daa3cee112</connectId>
+	<name>userName</name>
+	<value>eassis</value>
+</Property>
+<Property>
+	<connectId>47278588-47be-4631-9886-1d188d518046</connectId>
+	<name>password</name>
+	<value>1</value>
+</Property>
+<Property>
+	<connectId>15afba44-56d4-4d7c-84f2-307b0a3adb50</connectId>
+	<name>connectorClass</name>
+	<value/>
+</Property>
+<Property>
+	<connectId>5293718f-3536-45cc-a93a-38cfdeb293dc</connectId>
+	<name>timeOffset</name>
+	<value/>
+</Property>
+</Properties>
+<Types>
+<Type>
+	<connectId>52703c73-2242-472a-91a2-42f24bf313cd</connectId>
+	<name>ChangeSet</name>
+<Properties>
+<Property>
+	<connectId>ddb115db-49c3-4962-8283-85d947dd332c</connectId>
+	<name>modifiedByProperty</name>
+	<value>ModifiedBy</value>
+</Property>
+<Property>
+	<connectId>9afdb40b-84ee-4402-ace6-8ad1a0a8882f</connectId>
+	<name>createNewItems</name>
+	<value>true</value>
+</Property>
+<Property>
+	<connectId>6be7fcd7-a9f4-44f5-a462-f4b461b39556</connectId>
+	<name>idProperty</name>
+	<value>ID</value>
+</Property>
+<Property>
+	<connectId>d060e9cf-a692-4763-95ea-c4113098bd67</connectId>
+	<name>readOnly</name>
+	<value>false</value>
+</Property>
+<Property>
+	<connectId>ef1d907b-c6d8-437f-840d-d6ba04e8375b</connectId>
+	<name>modifiedTimeProperty</name>
+	<value>ModifiedTime</value>
+</Property>
+<Property>
+	<connectId>77784a85-cc55-4f8c-8d67-d91c88d1b597</connectId>
+	<name>externalURLProperty</name>
+	<value/>
+</Property>
+</Properties>
+</Type>
+</Types>
+</DataSource>
 </DataSources>
 <Synchronizations>
 <Synchronization>
@@ -2662,7 +2742,7 @@
 	<direction>both</direction>
 	<SmtpToAddressList/>
 	<EmailFrequency>1</EmailFrequency>
-	<enabled>true</enabled>
+	<enabled>false</enabled>
 <TypeMaps>
 <TypeMap>
 	<connectId>7e545eac-f707-4e17-b4ae-d84f1cf63b1c</connectId>
@@ -2686,6 +2766,42 @@
 	<sourceRootPath>starteam://10.200.45.240:49201/4;ns=Project;scheme=id/8;ns=View;scheme=id/</sourceRootPath>
 	<target>master</target>
 	<targetRootPath>/</targetRootPath>
+	<enabled>true</enabled>
+</ProjectMap>
+</ProjectMaps>
+</Synchronization>
+<Synchronization>
+	<connectId>770c5497-cb97-4749-8ce8-d4e757997ac2</connectId>
+	<name>GitLocalCTQ</name>
+	<source>HubDefault</source>
+	<target>GitLocal</target>
+	<direction>both</direction>
+	<SmtpToAddressList/>
+	<EmailFrequency>1</EmailFrequency>
+	<enabled>true</enabled>
+<TypeMaps>
+<TypeMap>
+	<connectId>ba3cb1f4-879a-4928-a335-2fcef2ca4dc1</connectId>
+	<source>ChangePackage</source>
+	<target>ChangeSet</target>
+	<includeChildren>true</includeChildren>
+<linkMap>
+	<sourceProperty>Name</sourceProperty>
+	<targetProperty>Comment</targetProperty>
+</linkMap>
+<SyncCriteriaOperator/>
+<PropertyMaps/>
+<SyncCriteriaList/>
+</TypeMap>
+</TypeMaps>
+<RelationshipMaps/>
+<ProjectMaps>
+<ProjectMap>
+	<connectId>7be4032a-9e01-4c2c-9969-e9793a608195</connectId>
+	<source>GitCTQ</source>
+	<sourceRootPath/>
+	<target>master</target>
+	<targetRootPath/>
 	<enabled>true</enabled>
 </ProjectMap>
 </ProjectMaps>
